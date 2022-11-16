@@ -1,6 +1,10 @@
-@extends('voyager::posts.edit-add')
+@php
+    $edit = !is_null($dataTypeContent->getKey());
+    $add  = is_null($dataTypeContent->getKey());
+@endphp
+@extends('voyager::bread.edit-add')
 @section('content')
-    @parent
+{{--    @parent--}}
     <div class="page-content container-fluid">
         <form class="form-edit-add" role="form" action="@if($edit){{ route('voyager.posts.update', $dataTypeContent->id) }}@else{{ route('voyager.posts.store') }}@endif" method="POST" enctype="multipart/form-data">
             <!-- PUT Method if we are editing -->
@@ -37,11 +41,8 @@
                                 '_field_name'  => 'title',
                                 '_field_trans' => get_field_translations($dataTypeContent, 'title')
                             ])
-                            @if($edit)
-                                <input type="title" class="form-control" id="title" name="title" placeholder="{{ __('voyager::generic.title') }}" value="{{ $dataTypeContent->title ?? '' }}">
-                            @else
-                                <textarea class="form-control" id="title" name="title" placeholder="{{ __('voyager::generic.title') }}" >{{ $dataTypeContent->title ?? '' }}</textarea>
-                            @endif
+{{--                            <input type="text" class="form-control" id="title" name="title" placeholder="{{ __('voyager::generic.title') }}" value="{{ $dataTypeContent->title ?? '' }}">--}}
+                            <textarea type="text" class="form-control" id="title" name="title" placeholder="{{ __('voyager::generic.title') }}">{{ $dataTypeContent->title ?? '' }}</textarea>
                         </div>
                     </div>
 
@@ -260,4 +261,4 @@
         </div>
     </div>
     <!-- End Delete File Modal -->
-@endsection
+@stop
